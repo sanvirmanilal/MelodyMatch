@@ -1,0 +1,25 @@
+﻿
+@if (SelectedDifficulty != null && SelectedSong != null )
+{
+<div class="container">
+    @for (int row = 0; row < SelectedDifficulty.MaxRows; row++)
+    {
+            var currentRow = row;
+            <div class="row">
+            @for (int column = 0; column < SelectedDifficulty.MaxColumns; column++)
+            {
+                    var currentColumn = column;
+                <div class="col p-3">
+                    <audio id="@(GetTileId(row, column))" @onended="@(() => CheckIfMatches(currentRow, currentColumn))">
+                        <source src="@(GetSongSnippetName(row, column))" type="audio/mpeg" />
+                    </audio>
+                    <button class="btn btn-info btn-lg w-50" onclick="document.getElementById('@(GetTileId(row, column))').play()" disabled="@GetTileStatus(row, column)">@GetTileText(row, column)</button>
+                </div>
+            }
+        </div>
+    }
+</div>
+}
+
+<Popup @ref="_popup" />
+

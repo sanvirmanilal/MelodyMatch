@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\songs\ElRock.mp3" />
+    <None Include="wwwroot\songs\Jazzy.mp3" />
+    <None Include="wwwroot\songs\Turkish.mp3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MelodyMatch.Core\MelodyMatch.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Songs\" />
+  </ItemGroup>
+
+</Project>

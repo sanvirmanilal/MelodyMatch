@@ -1,0 +1,34 @@
+﻿@page "/play"
+<h3>Let's Play!</h3>
+
+<EditForm Model="@GameConfig">
+    <div class="form-group">
+        <div>
+            <label>
+                Songs:
+                <InputSelect @bind-Value="GameConfig.SelectedSongId">
+                    <option value="-1">Select a song ...</option>
+                    @foreach (var song in SongList)
+                    {
+                        <option value="@song.Id">@song.Description</option>
+                    }
+                </InputSelect>
+            </label>
+
+            <label class="p-lg-4">
+                Difficulty:
+                <InputSelect @bind-Value="GameConfig.SelectedDifficultyId">
+                    <option value="-1">Select a difficulty...</option>
+                    @foreach (var difficulty in DifficultyList)
+                    {
+                        <option value="@difficulty.Id">@difficulty.Description</option>
+                    }
+                </InputSelect>
+            </label>
+
+        </div>
+        <div>
+            <SongGrid @ref="SongGrid" SelectedDifficultyId="GameConfig.SelectedDifficultyId" SelectedSongId="GameConfig.SelectedSongId" />
+        </div>
+    </div>
+</EditForm>

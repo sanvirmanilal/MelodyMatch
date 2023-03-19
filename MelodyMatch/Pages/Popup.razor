@@ -1,0 +1,56 @@
+﻿@inject IJSRuntime JS
+@{
+    var showClass = IsVisible ? "d-block" : "d-none";
+}
+
+<div class="toast-container p-3 @showClass" data-bs-autohide="true" data-bs-delay="5000">
+    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">🏆 Congratulations! 🏆</strong>
+            <button type="button" class="btn-close" aria-label="Close" @onclick="Close"></button>
+        </div>
+
+        <div class="toast-body">
+            <h3>@BodyText</h3>
+            <p>
+                <audio id="player" controls autoplay src="@AudioFilePath">
+                </audio>
+            </p>
+
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public bool IsVisible { get; set; }
+
+    public string AudioFilePath { get; set; } = string.Empty;
+
+    [Parameter]
+    public EventCallback<bool> IsVisibleChanged { get; set; }
+
+    [Parameter]
+    public string? HeaderText { get; set; }
+
+    [Parameter]
+    public string? BodyText { get; set; }
+
+    public void Show(string bodyText, string audioFilePath, string headerText = "")
+    {
+        AudioFilePath = audioFilePath;
+        BodyText = bodyText;
+        IsVisible = true;
+        StateHasChanged();
+    }
+
+    private async Task Close()
+    {
+        HeaderText = string.Empty;
+        BodyText = string.Empty;
+        IsVisible = false;
+        await JS.InvokeAsync<string>("StopSound");
+        StateHasChanged();
+    }
+}
